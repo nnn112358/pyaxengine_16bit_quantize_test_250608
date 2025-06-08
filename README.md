@@ -1,7 +1,7 @@
 # YOLO11/12 16-bit quantization n/s-size model error
 
 ## Issue Description
-When attempting to run 16-bit quantized YOLO11/12 models (n and s sizes) on M5Stack LLM630 (AX620E), the models fail to load and execute, while 8-bit quantized versions work correctly. Larger models (m, l, x) work fine with both 8-bit and 16-bit quantization.
+When attempting to run 16-bit quantized YOLO11/12 models (n and s sizes) on M5Stack LLM630 , the models fail to load and execute, while 8-bit quantized versions work correctly. Larger models (m, l, x) work fine with both 8-bit and 16-bit quantization.
 
 ## Environment
 - **Hardware**: M5Stack LLM630 Compute KIT(AX620E)
