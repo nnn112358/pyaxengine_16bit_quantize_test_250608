@@ -8,6 +8,8 @@ This issue does not appear to be related to pyaxengine. The root cause is suspec
 - **Hardware**: M5Stack LLM630 Compute KIT(AX620E)
 - **Pulsar2 version**: 4.0 64a0e58f
 
+## Repository
+Test code and models are available at: https://github.com/nnn112358/pyaxengine_16bit_quantize_test_250608/tree/master
 
 ## Test Results
 | Chip | Model | int8 NPU1 | int8 NPU2 | int16 NPU1 | int16 NPU2 |
@@ -30,6 +32,8 @@ This issue does not appear to be related to pyaxengine. The root cause is suspec
 
 
 When I try to load the 16-bit quantized model of yolo11n (12n) and yolo11s (11s) in pyaxengine, an error occurs. Everything else is OK.
+
+https://github.com/nnn112358/pyaxengine_16bit_quantize_test_250608/tree/master
 
 ```
 root@m5stack-kit: #  python ax_inference_benchmark.py axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
