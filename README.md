@@ -9,7 +9,7 @@ This issue does not appear to be related to pyaxengine. The root cause is suspec
 - **Pulsar2 version**: 4.0 64a0e58f
 
 ## Repository
-Test code and models are available at: https://github.com/nnn112358/pyaxengine_16bit_quantize_test_250608/tree/master
+Test code and models are available at: https://github.com/nnn112358/pyaxengine_16bit_quantize_test_250608/
 
 ## Test Results
 | Chip | Model | int8 NPU1 | int8 NPU2 | int16 NPU1 | int16 NPU2 |
