@@ -1,17 +1,56 @@
-Based on the provided compatibility table and error logs, here's an analysis of YOLO model performance on the M5Stack LLM630 (AX620E) platform:
 
-**Model Compatibility Overview**
 
-The M5Stack LLM630 equipped with the AX620E chip demonstrates varying levels of compatibility with YOLO11 and YOLO12 models depending on the quantization method and model size. Both NPU1 and NPU2 configurations show successful operation with int8 quantization across all model variants, from the lightweight nano models to the heavyweight x-series models. However, int16 quantization presents significant limitations, with nano and small models failing to execute and returning ERROR status, while medium, large, and x-series models maintain full compatibility.
 
-**Quantization Performance Characteristics**
+| chip| axmodel| int8ó éqâª NPU1 | int8ó éqâª NPU2 | int16ó éqâª NPU1 | int16ó éqâª NPU2 |
+|--------|--------|-----------------|-----------------|------------------|------------------|
+|M5Stack LLM630( AX620E) | yolo11n | ÅZ | ÅZ | ERROR | ERROR |
+| - | yolo11s | ÅZ | ÅZ | ERROR | ERROR |
+| - | yolo11m | ÅZ | ÅZ | ÅZ | ÅZ |
+| - | yolo11l | ÅZ | ÅZ | ÅZ | ÅZ |
+| - | yolo11x | ÅZ | ÅZ | ÅZ | ÅZ |
+| - | yolo12n | ÅZ | ÅZ | ERROR | ERROR |
+| - | yolo12s | ÅZ | ÅZ | ERROR | ERROR |
+| - | yolo12m | ÅZ | ÅZ | ÅZ | ÅZ |
+| - | yolo12l | ÅZ | ÅZ | ÅZ | ÅZ |
+| - | yolo12x | ÅZ | ÅZ | ÅZ | ÅZ |
 
-The int8 quantization proves to be the most reliable approach, offering universal compatibility across both YOLO11 and YOLO12 model families. This suggests that the AX620E's NPU architecture is optimized for 8-bit integer operations, providing robust inference capabilities while maintaining computational efficiency. In contrast, int16 quantization appears to require additional computational resources that are only available when using larger model architectures, indicating a potential memory or processing threshold that smaller models cannot meet.
 
-**Error Analysis and Troubleshooting**
+```
+# python ax_inference_benchmark.py axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
+[INFO] Available providers:  ['AxEngineExecutionProvider']
+[INFO] Using provider: AxEngineExecutionProvider
+[INFO] Chip type: ChipType.MC20E
+[INFO] VNPU type: VNPUType.DISABLED
+[INFO] Engine version: 2.6.3sp
+[INFO] Model type: 1 (full core)
+[INFO] Compiler version: 4.0 19f40f01
+ÉÇÉfÉã: yolo11n_config_u16_AX620E_NPU2.axmodel
+ì¸óÕå`èÛ: [1, 640, 640, 3]
+ì¸óÕå^: uint8
 
-The execution errors encountered with the yolo11n model using int16 quantization on NPU2 reveal underlying system limitations. The error logs show successful model loading and initialization, with the system correctly identifying the AX620E chip (ChipType.MC20E) and appropriate engine versions. However, the failure occurs during actual model execution, suggesting that while the model format is compatible, the runtime requirements exceed the available resources for this specific configuration. The "Run model in warmup failed" message indicates that the issue manifests immediately during the initial model preparation phase, rather than during sustained inference operations.
+ë™íËíÜ...
+ÉGÉâÅ[: Failed to run model.
+```
 
-**Practical Implementation Recommendations**
 
-For developers working with the M5Stack LLM630 platform, the optimal approach involves utilizing int8 quantization for reliable performance across all model sizes. When higher precision is required, int16 quantization should be limited to medium-sized models or larger, accepting the trade-off between accuracy and compatibility. The consistent success of larger models with int16 quantization suggests that applications requiring maximum accuracy should prioritize yolo11m/yolo12m or larger variants, while real-time applications with strict resource constraints should focus on int8 implementations regardless of model size.
+````
+# ax_run_model -m axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel -r 1
+   Run AxModel:
+         model: axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
+          type: Full
+          vnpu: Disable
+      affinity: 0b01
+        warmup: 1
+        repeat: 1
+         batch: { auto: 0 }
+   pulsar2 ver: 4.0 64a0e58f
+    engine ver: 2.6.3sp
+      tool ver: 2.3.3sp
+      cmm size: 12437212 Bytes
+[ERROR] Run model failed.
+[ERROR] Run model in warmup failed.
+[ERROR] Run model {axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel} failed.
+````
+
+
+
