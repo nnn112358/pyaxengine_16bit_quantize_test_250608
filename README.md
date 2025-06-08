@@ -31,15 +31,15 @@ When attempting to run 16-bit quantized YOLO11/12 models (n and s sizes) on M5St
 When I try to load the 16-bit quantized model of yolo11n (12n) and yolo11s (11s) in pyaxengine, an error occurs. Everything else is OK.
 
 ```
-# python ax_inference_benchmark.py axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
+root@m5stack-kit: #  python ax_inference_benchmark.py axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
 [INFO] Available providers:  ['AxEngineExecutionProvider']
 [INFO] Using provider: AxEngineExecutionProvider
 [INFO] Chip type: ChipType.MC20E
 [INFO] VNPU type: VNPUType.DISABLED
 [INFO] Engine version: 2.6.3sp
 [INFO] Model type: 1 (full core)
-[INFO] Compiler version: 4.0 19f40f01
-モデル: yolo11n_config_u16_AX620E_NPU2.axmodel
+[INFO] Compiler version: 4.0 64a0e58f
+モデル: axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
 入力形状: [1, 640, 640, 3]
 入力型: uint8
 
@@ -49,7 +49,7 @@ When I try to load the 16-bit quantized model of yolo11n (12n) and yolo11s (11s)
 
 The same happens if you do not use pyaxengine but use the ax_run_model command.
 ````
-# ax_run_model -m axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel -r 1
+root@m5stack-kit:# ax_run_model -m axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel -r 1
    Run AxModel:
          model: axmodel/yolo11n_config_u16_AX620E_NPU2.axmodel
           type: Full
